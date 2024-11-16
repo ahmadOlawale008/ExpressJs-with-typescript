@@ -1,11 +1,11 @@
 import { config } from "dotenv";
 import express from "express";
-import  { logger } from "./middleware/logEvents";
+import { logger } from "./middleware/logEvents";
 import path from "path";
 import cors from "cors"
 import navbarRouter from "./routes/navbar-app";
 import employeesRouter from "./routes/api/employees";
-import corsOptions from "config/corsOptions";
+import corsOptions from "./config/corsOptions";
 
 config();
 const PORT = process.env.BACKEND_PORT || 3500
