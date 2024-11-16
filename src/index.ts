@@ -4,6 +4,7 @@ import fs from 'fs';
 import { promises as fsPromises } from 'fs';
 import { EventEmitter } from "stream";
 import { config } from "dotenv";
+import logEvents from "./logEvents";
 
 config();
 const PORT = process.env.BACKEND_PORT || 3500
@@ -12,19 +13,24 @@ const myEmitter = new EventEmitter();
 const serveFile = async (filePath:string, contentType:string, response: ServerResponse)=>{
     console.log(filePath, contentType, response.statusCode)
     try {
-        const rawData = await fsPromises.readFile(filePath, "utf8")
+        const rawData = await fsPromises.readFile(filePath, !contentType.includes("image") ? "utf8" : "" as BufferEncoding)
         const data = contentType === "application/json" ? JSON.parse(rawData) : rawData
-        response.writeHead(200, {"content-type": contentType})
+        response.writeHead(filePath.includes("404.html") ? 404 : 200, {"content-type": contentType})
         response.end(
             contentType === "application/json" ? JSON.stringify(data) : data
         )
     } catch (error) {
+        if(error instanceof Error){
+            myEmitter.emit("log", `${error.name}\t${error.message}`, 'errorLog.txt')
+        }
+        myEmitter.emit("log", 'Unknown error', 'errorLog.txt');
         response.statusCode = 500;
         response.end()
-        console.error(error)
+        console.log("An Error has occured: ", error)
     }
 }
 const server = http.createServer((req, res) => {
+    myEmitter.emit("log", `${req.url}\t${req.method}`, 'reqLog.txt')
     let urlPath;
     const extension = path.extname(req.url ?? "")
     let contentType;
@@ -40,6 +46,12 @@ const server = http.createServer((req, res) => {
             break;
         case ".png":
             contentType = "image/png";
+            break;
+        case ".jpg":
+            contentType = "image/jpg";
+            break;
+        case ".jpeg":
+            contentType = "image/jpeg";
             break;
         case ".txt":
             contentType = "text/plain";
@@ -73,3 +85,5 @@ const server = http.createServer((req, res) => {
 })
 
 server.listen(PORT, ()=>console.log("Server listening on port:  " + PORT))
+
+myEmitter.on("log", (msg, path) => {logEvents(msg, path)})

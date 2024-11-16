@@ -4,7 +4,7 @@ import { promises as fsPromises } from 'fs'
 import path from "path";
 import fs from 'fs';
 
-const logEvents = async (message: string) => {
+const logEvents = async (message: string, filePath?:string) => {
     const dateTime = `${format(new Date(), "yyyy-MM-dd\tHH:mm:ss")}`
     const logItem = `${dateTime}\t${uuid()}\t${message}\n`
     try {
@@ -12,7 +12,7 @@ const logEvents = async (message: string) => {
             await fsPromises.mkdir(path.join(__dirname, "logs"))
         }
 
-        await fsPromises.appendFile(path.join(__dirname, "logs", "eventsLog.txt"), logItem)
+        await fsPromises.appendFile(path.join(__dirname, "logs", filePath || "eventsLog.txt"), logItem)
     } catch (error: any) {
         throw new Error(error.message)
     }
