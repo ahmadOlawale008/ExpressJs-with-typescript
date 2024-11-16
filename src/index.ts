@@ -10,10 +10,14 @@ const PORT = process.env.BACKEND_PORT || 3500
 const myEmitter = new EventEmitter();
 
 const serveFile = async (filePath:string, contentType:string, response: ServerResponse)=>{
+    console.log(filePath, contentType, response.statusCode)
     try {
-        const data = await fsPromises.readFile(filePath, "utf8")
+        const rawData = await fsPromises.readFile(filePath, "utf8")
+        const data = contentType === "application/json" ? JSON.parse(rawData) : rawData
         response.writeHead(200, {"content-type": contentType})
-        response.end(data)
+        response.end(
+            contentType === "application/json" ? JSON.stringify(data) : data
+        )
     } catch (error) {
         response.statusCode = 500;
         response.end()
@@ -47,8 +51,7 @@ const server = http.createServer((req, res) => {
     let filePath = 
     contentType === "text/html" && req.url === "/" ? path.join(__dirname, "navbar-app", "index.html")
     : contentType === "text/html" && req.url?.slice(-1) === "/" ? path.join(__dirname, "navbar-app", req.url, "index.html") :
-    contentType === "text/html" ? path.join(__dirname, "navbar-app", req.url as string) : path.join(__dirname, req.url as string)
-
+                contentType === "text/html" ? path.join(__dirname, "navbar-app", req.url as string) : path.join(__dirname, "navbar-app", req.url as string)
     if(!extension && req.url?.slice(-1) !== "/") filePath += ".html"
     const fileExists = fs.existsSync(filePath)
     if(fileExists) {
