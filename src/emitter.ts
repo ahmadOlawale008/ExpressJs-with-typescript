@@ -1,4 +1,4 @@
-import logEvents from "./logEvents";
+import logEvents from "./middleware/logEvents";
 import { EventEmitter } from "stream";
 
 class MyEmitter extends EventEmitter { }
