@@ -1,27 +1,17 @@
 import { config } from "dotenv";
 import express from "express";
-import logEvents, { logger } from "./middleware/logEvents";
+import  { logger } from "./middleware/logEvents";
 import path from "path";
-import cors, { CorsOptions } from "cors"
+import cors from "cors"
 import navbarRouter from "./routes/navbar-app";
 import employeesRouter from "./routes/api/employees";
+import corsOptions from "config/corsOptions";
 
 config();
 const PORT = process.env.BACKEND_PORT || 3500
 const app = express();
 app.use(logger);
-const whitelist = ["https://www.google.com", "http://localhost:5000"]
-const corsOptions: CorsOptions = {
-    origin: (origin, callback) => {
-        if (whitelist.indexOf(origin || "") !== -1 || !origin) {
-            callback(null, true)
-        }
-        else {
-            callback(new Error("Not allowed by CORS"))
-        }
-    },
-    optionsSuccessStatus: 200
-}
+
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
