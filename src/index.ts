@@ -5,6 +5,8 @@ import path from "path";
 import cors from "cors"
 import navbarRouter from "./routes/navbar-app";
 import employeesRouter from "./routes/api/employees";
+import usersRouter from "./routes/api/users";
+import authRouter from "./routes/api/auth";
 import corsOptions from "./config/corsOptions";
 
 config();
@@ -18,6 +20,9 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '/navbar-app')))
 app.use("/", navbarRouter)
 app.use("/employees", employeesRouter)
+app.use("/users", usersRouter)
+app.use("/auth", authRouter)
+
 app.all('*', (req, res) => {
     if (req.accepts("html")) {
         res.sendFile(path.join(__dirname, 'navbar-app', "404.html"));
