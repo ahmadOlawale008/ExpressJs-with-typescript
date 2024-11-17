@@ -22,15 +22,16 @@ export const handleLogin = async (req: Request, res: Response) => {
     if (match) {
         const accessToken = jwt.sign({
             username: foundUser.username
-        }, process.env.ACCESS_TOKEN_SECRET as string, {expiresIn: '1m'})
+        }, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: '1m' })
         const refreshToken = jwt.sign({
             username: foundUser.username
-        }, process.env.REFRESH_TOKEN_SECRET as string, {expiresIn: '3d'})
-        const otherUsers = userDb.users.filter(user=>user.username != foundUser.username)
-        const currentUser = {...foundUser, refreshToken}
+        }, process.env.REFRESH_TOKEN_SECRET as string, { expiresIn: '3d' })
+        const otherUsers = userDb.users.filter(user => user.username != foundUser.username)
+        const currentUser = { ...foundUser, refreshToken }
         userDb.setUsers([...otherUsers, currentUser])
-        await fsPromises.writeFile(path.join(__dirname, '..', 'model', 'users.json'), JSON.stringify(userDb.users) )
-        res.json({ "sucess": `User ${foundUser.username} is logged in` })
+        await fsPromises.writeFile(path.join(__dirname, '..', 'model', 'users.json'), JSON.stringify(userDb.users))
+        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 25 * 60 * 60 * 1000 })
+        res.json({ "sucess": `User ${foundUser.username} is logged in`, accessToken })
     }
     else {
         res.sendStatus(401)
