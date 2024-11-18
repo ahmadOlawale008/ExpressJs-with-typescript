@@ -84,6 +84,10 @@ const server = http.createServer((req, res) => {
     }
 })
 
+if (!process.env.ACCESS_TOKEN_SECRET || !process.env.REFRESH_TOKEN_SECRET) {
+    console.error("ERROR: ACCESS_TOKEN_SECRET is not set in the environment variables.");
+    process.exit(1);
+}
 server.listen(PORT, () => console.log("Server listening on port:  " + PORT))
 
 myEmitter.on("log", (msg, path) => { logEvents(msg, path) })

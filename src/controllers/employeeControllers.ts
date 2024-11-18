@@ -45,7 +45,7 @@ export const DeleteEmployee = (req: Request, res: Response) => {
     }
     const filteredArray = data.employees.filter(emp => emp._id !== parseInt(req.params.id))
     data.setEmployees(filteredArray)
-    res.status(200).json({ "success": "Deleted Successfully", data: data.employees })
+    res.status(200).json({"success": true, "msg": "Deleted Successfully", data: data.employees })
 }
 
 export const GetEmployeeById = (req: Request, res: Response) => {

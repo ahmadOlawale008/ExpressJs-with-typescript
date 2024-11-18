@@ -4,8 +4,6 @@ import path from "path";
 import { Request, Response } from "express";
 import { comparePassword, encryptPassword } from '../config/encrypt';
 import jwt from "jsonwebtoken"
-import { config } from "dotenv";
-config();
 
 const userDb: UsersType = {
     users: require("../model/users.json"), setUsers: function (data) { this.users = data }
@@ -13,13 +11,13 @@ const userDb: UsersType = {
 export const handleLogin = async (req: Request, res: Response) => {
     const { username, password } = req.body;
     if (!username || !password) {
-        res.status(400).json({ error: "Missing user or password" })
+        res.status(400).json({ error: "Missing user or password", "success": false })
         return
     }
     const foundUser = userDb.users.find(person => person.username === username)
     if (!foundUser) {
         console.log("User not found")
-        res.status(401).json({ error: "Invalid username or password" })
+        res.status(401).json({ "success": false, msg: "Invalid username or password" })
         return
     }
     const match = await comparePassword(password, foundUser.password || "")
@@ -35,7 +33,7 @@ export const handleLogin = async (req: Request, res: Response) => {
         userDb.setUsers([...otherUsers, currentUser])
         await fsPromises.writeFile(path.join(__dirname, '..', 'model', 'users.json'), JSON.stringify(userDb.users))
         res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 25 * 60 * 60 * 1000 })
-        res.json({ "sucess": `User ${foundUser.username} is logged in`, accessToken })
+        res.json({ "success": true, "msg": `User ${foundUser.username} is logged in`, accessToken })
     }
     else {
         console.log("No password match found")

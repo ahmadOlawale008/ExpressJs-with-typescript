@@ -5,7 +5,8 @@ import path from "path";
 import fs from 'fs';
 import { NextFunction, Request, Response } from "express";
 
-const logEvents = async (message: string, filePath?:string) => {
+
+const logEvents = async (message: string, filePath?: string) => {
     const dateTime = `${format(new Date(), "yyyy-MM-dd\tHH:mm:ss")}`
     const logItem = `${dateTime}\t${uuid()}\t${message}\n`
     try {
@@ -18,7 +19,8 @@ const logEvents = async (message: string, filePath?:string) => {
         throw new Error(error.message)
     }
 }
-export const logger = (req: Request, res: Response, next: NextFunction)=>{
+
+export const logger = (req: Request, res: Response, next: NextFunction) => {
     logEvents(`${req.method}\t${req.headers.origin}\t${req.url}`, "reqLog.txt")
     console.log(`${req.method}\t${req.path}`)
     next()

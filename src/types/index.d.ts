@@ -18,6 +18,7 @@ export type UserType = {
     _id: number,
     username?: string,
     password?: string,
+    refreshToken?: string,
 }
 export type UsersType = {
     users: UserType[],

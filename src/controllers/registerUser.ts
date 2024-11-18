@@ -7,7 +7,6 @@ import { encryptPassword } from "../config/encrypt";
 const userDb: UsersType = {
     users: require("../model/users.json"), setUsers: function (data) { this.users = data }
 }
-
 export const handleNewUser = async (req: Request, res: Response) => {
     const { username, password } = req.body;
     if (!username || !password) {
