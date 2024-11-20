@@ -1,4 +1,4 @@
-import { handleNewUser } from "../../controllers/registerUser";
+import { handleNewUser } from "../../controllers/registerUserController";
 import { Router } from "express";
 const router = Router();
 router.route("/")
