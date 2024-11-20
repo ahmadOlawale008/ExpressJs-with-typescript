@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken"
 const userDb: UsersType = {
     users: require("../model/users.json"), setUsers: function (data) { this.users = data }
 }
+
 export const handleLogin = async (req: Request, res: Response) => {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -32,7 +33,7 @@ export const handleLogin = async (req: Request, res: Response) => {
         const currentUser = { ...foundUser, refreshToken }
         userDb.setUsers([...otherUsers, currentUser])
         await fsPromises.writeFile(path.join(__dirname, '..', 'model', 'users.json'), JSON.stringify(userDb.users))
-        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 25 * 60 * 60 * 1000 })
+        res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: "none", secure: false, maxAge: 24 * 60 * 60 * 1000 })
         res.json({ "success": true, "msg": `User ${foundUser.username} is logged in`, accessToken })
     }
     else {

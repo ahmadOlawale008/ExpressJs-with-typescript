@@ -9,7 +9,7 @@ const userDb: UsersType = {
     users: require("../model/users.json"), setUsers: function (data) { this.users = data }
 }
 
-export const logoutController = async(req: Request, res: Response) => {
+export const handleLogout = async(req: Request, res: Response) => {
     const cookies = req.cookies
     if (req.user || !cookies?.jwt) {
         res.status(401).json({ message: "Unauthorized" })

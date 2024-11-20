@@ -1,13 +1,1 @@
-[
-  {
-    "_id": 1,
-    "username": "Tom Edison",
-    "password": "$2b$10$sW2EQxcRp31cUgCDLQ/VpefC.H82tC65NFyxqXQfhzcKnyG6nh28y"
-  },
-  {
-    "_id": 2,
-    "username": "Thomas Edison",
-    "password": "$2b$10$p/e4E2PmVbkSgUsCWBIlKuO2VcNIL3H5KD7CFjxMEvCYnUdXYqdAy",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRob21hcyBFZGlzb24iLCJpYXQiOjE3MzE5MjA0NzgsImV4cCI6MTczMjAwNjg3OH0.c8HY3W1YgO4n6ETtWxEiL6fXmE-ynI2VtUIUIbONs3Y"
-  }
-]
+[{"_id":1,"username":"Tom Edison","password":"$2b$10$sW2EQxcRp31cUgCDLQ/VpefC.H82tC65NFyxqXQfhzcKnyG6nh28y"},{"_id":2,"username":"Thomas Edison","password":"$2b$10$p/e4E2PmVbkSgUsCWBIlKuO2VcNIL3H5KD7CFjxMEvCYnUdXYqdAy","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRob21hcyBFZGlzb24iLCJpYXQiOjE3MzIxMTU2MjUsImV4cCI6MTczMjIwMjAyNX0.dS3QQ6cSlRoGY3VrrhuGObwK7YIS5aVW7XwWaD6GPwg"}]
