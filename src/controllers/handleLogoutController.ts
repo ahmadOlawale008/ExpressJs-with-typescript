@@ -27,6 +27,6 @@ export const handleLogout = async(req: Request, res: Response) => {
     if(foundUser.refreshToken) delete foundUser.refreshToken
     userDb.setUsers([...otherUsers, foundUser])
     await fsPromises.writeFile(path.join(__dirname, "..", "model", "user.json"), JSON.stringify(userDb))
-    res.clearCookie("jwt", {httpOnly: true}) // secure: true = Only serves on https
+    res.clearCookie("jwt", {httpOnly: true, sameSite: "none", secure: true}) // secure: true = Only serves on https
     res.sendStatus(200)
 }
