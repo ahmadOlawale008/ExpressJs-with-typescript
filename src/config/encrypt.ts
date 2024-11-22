@@ -12,6 +12,7 @@ export const encryptPassword = async (password: string) => {
         throw new Error("An error occurred while encrypting the password")
     }
 }
+ 
 export const comparePassword = async (password: string, hashed: string) => {
     try {
         return await bcrypt.compare(password, hashed);

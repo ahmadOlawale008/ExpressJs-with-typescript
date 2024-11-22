@@ -1,14 +1,14 @@
-import express, { Router } from 'express';
-import path from 'path';
-import { EmployeesType } from '../../types/index';
+import  { Router } from 'express';
 import { CreateEmployee, DeleteEmployee, getAllEmployees, GetEmployeeById, UpdateEmployee } from '../../controllers/employeeControllers';
-import { veryifyJwt } from "../../middleware/verifyJwt"
+import { ROLES_LIST } from '../../config/roles_list';
+import verifyRoles from '../../middleware/verifyRoles';
+
 const router = Router()
 router.route("/")
-    .get(veryifyJwt, getAllEmployees)
-    .post(CreateEmployee)
+    .get(getAllEmployees)
+    .post(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), CreateEmployee)
 router.route("/:id")
-    .get(GetEmployeeById)
-    .put(UpdateEmployee)
-    .delete(DeleteEmployee)
+    .get(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), GetEmployeeById)
+    .put(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), UpdateEmployee)
+    .delete(verifyRoles(ROLES_LIST.Admin),DeleteEmployee)
 export default router

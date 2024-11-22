@@ -12,7 +12,7 @@ import corsOptions from "./config/corsOptions";
 import refreshTokenRouter from "./routes/api/refresh";
 import cookieParser from "cookie-parser";
 import { credentials } from "./middleware/credentials";
-
+import { veryifyJwt } from "./middleware/verifyJwt";
 
 config();
 const PORT = process.env.BACKEND_PORT || 3500
@@ -26,9 +26,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/navbar-app')))
 app.use("/", navbarRouter)
-app.use("/employees", employeesRouter)
 app.use("/users", usersRouter)
 app.use("/auth", authRouter)
+app.use(veryifyJwt)
+app.use("/employees", employeesRouter)
 app.use("/logout", logoutRouter)
 app.use("/refresh", refreshTokenRouter)
 

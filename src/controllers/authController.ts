@@ -8,7 +8,6 @@ import jwt from "jsonwebtoken"
 const userDb: UsersType = {
     users: require("../model/users.json"), setUsers: function (data) { this.users = data }
 }
-
 export const handleLogin = async (req: Request, res: Response) => {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -23,8 +22,12 @@ export const handleLogin = async (req: Request, res: Response) => {
     }
     const match = await comparePassword(password, foundUser.password || "")
     if (match) {
+        const roles = Object.values(foundUser.roles)
         const accessToken = jwt.sign({
-            "username": foundUser.username
+            "UserInfo": {
+                username: foundUser.username,
+                roles
+            }
         }, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: '5m', })
         const refreshToken = jwt.sign({
             "username": foundUser.username
