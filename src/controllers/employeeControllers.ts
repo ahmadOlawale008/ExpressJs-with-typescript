@@ -39,7 +39,6 @@ export const CreateEmployee = async (req: Request, res: Response) => {
 }
 
 export const UpdateEmployee = async (req: Request, res: Response) => {
-    if (req.params.id && typeof req.params.id === "string") return
     const employee = await Employyes.findOne({ _id: parseInt(req.params.id) })
     if (!employee) {
         console.log(employee, "Employee not found")
@@ -52,20 +51,18 @@ export const UpdateEmployee = async (req: Request, res: Response) => {
     res.json(result)
 }
 
-export const DeleteEmployee = (req: Request, res: Response) => {
-    const employee = data.employees.find((e) => e._id === parseInt(req.params.id))
+export const DeleteEmployee = async (req: Request, res: Response) => {
+    const employee = await Employyes.findOne({ _id: parseInt(req.params.id) }).exec()
     if (!employee) {
         res.status(404).send("Employee not found")
         return;
     }
-    const filteredArray = data.employees.filter(emp => emp._id !== parseInt(req.params.id))
-    data.setEmployees(filteredArray)
-    res.status(200).json({ "success": true, "msg": "Deleted Successfully", data: data.employees })
+    const result = await employee.deleteOne({ _id: parseInt(req.params.id) })
+    res.status(200).json({ "success": true, "msg": "Deleted Successfully" })
 }
 
-export const GetEmployeeById = (req: Request, res: Response) => {
-    console.log("RAN PARAMS ID")
-    const employee = data.employees.find((e) => e._id === parseInt(req.params.id))
+export const GetEmployeeById = async (req: Request, res: Response) => {
+    const employee = await Employyes.findOne({ _id: parseInt(req.params.id) }).exec()
     if (!employee) {
         res.status(404).send("Employee not found")
         return;
