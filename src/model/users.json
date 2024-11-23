@@ -1,15 +1,1 @@
-[
-  {
-    "_id": 1,
-    "username": "Tom Edison",
-    "roles": { "Admin": 5150, "Editor": 1984, "User": 2001 },
-    "password": "$2b$10$sW2EQxcRp31cUgCDLQ/VpefC.H82tC65NFyxqXQfhzcKnyG6nh28y"
-  },
-  {
-    "_id": 2,
-    "username": "Thomas Edison",
-    "roles": { "Editor": 1984, "User": 2001 },
-    "password": "$2b$10$p/e4E2PmVbkSgUsCWBIlKuO2VcNIL3H5KD7CFjxMEvCYnUdXYqdAy",
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRob21hcyBFZGlzb24iLCJpYXQiOjE3MzIyNzY4NzcsImV4cCI6MTczMjM2MzI3N30.40HOHxugcdiqTjgLriUZJzrRulqGL51p-yVFVrsloWI"
-  }
-]
+[{"_id":1,"username":"Tom Edison","roles":{"Admin":5150,"Editor":1984,"User":2001},"password":"$2b$10$sW2EQxcRp31cUgCDLQ/VpefC.H82tC65NFyxqXQfhzcKnyG6nh28y"},{"_id":2,"username":"Thomas Edison","roles":{"Editor":1984,"User":2001},"password":"$2b$10$p/e4E2PmVbkSgUsCWBIlKuO2VcNIL3H5KD7CFjxMEvCYnUdXYqdAy","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRob21hcyBFZGlzb24iLCJpYXQiOjE3MzIzNTYxNDAsImV4cCI6MTczMjQ0MjU0MH0.UDGqVqJZ6YmEA8fMI1X-eIovKpx8dPZ6e3qgfuMbLCA"}]

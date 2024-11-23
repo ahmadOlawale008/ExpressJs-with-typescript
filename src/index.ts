@@ -13,8 +13,12 @@ import refreshTokenRouter from "./routes/api/refresh";
 import cookieParser from "cookie-parser";
 import { credentials } from "./middleware/credentials";
 import { veryifyJwt } from "./middleware/verifyJwt";
+import mongoose from "mongoose";
+import connectDB from "./config/dbConfig";
+
 
 config();
+connectDB();
 const PORT = process.env.BACKEND_PORT || 3500
 const app = express();
 app.use(logger);
@@ -43,4 +47,7 @@ app.all('*', (req, res) => {
         res.type("txt").send("404 Not Found")
     }
 })
-app.listen(PORT)
+mongoose.connection.once("open", ()=>{
+    console.log("Connected to MongoDB")
+    app.listen(PORT, ()=>console.log("Server Running on port " + PORT))
+})

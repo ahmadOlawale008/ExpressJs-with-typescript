@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from "express"
-
 const verifyRoles = (...allowedRoles: number[]) => {
     return (req: Request, res: Response, next: NextFunction) => {
-        console.log(allowedRoles, req.roles, req.user, "Roles.............")
         if (!req.roles) {
              res.status(401).json({ message: "Roles Unauthorized" })
                 return

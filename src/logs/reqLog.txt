@@ -644,3 +644,10 @@
 2024-11-22	13:05:00	d4c54f67-2fd7-49cc-a3fb-96709cf65ed3	GET	undefined	/employees/
 2024-11-22	13:05:01	ad6a3acd-0799-4fa5-95d6-35b99b1a8ec2	GET	undefined	/employees/
 2024-11-22	13:14:05	c3c2bbac-cdf2-4455-b536-3bd9aee39ab4	GET	undefined	/employees/
+2024-11-23	11:02:20	ab42d4f8-c2e1-4c1d-95b2-34f174ea8958	POST	undefined	/auth
+2024-11-23	11:02:37	a819ec48-9af8-421b-bb8d-e034e030f5d0	POST	undefined	/employees
+2024-11-23	11:17:13	cda18432-fb8f-4895-a550-8f9395e4d3c5	POST	undefined	/employees
+2024-11-23	11:17:23	20e76043-86c5-4667-a4cd-76d909df59f1	GET	undefined	/employees
+2024-11-23	11:17:25	8a407f67-306a-4a55-9a83-90367bab5d82	GET	undefined	/employees
+2024-11-23	11:17:25	d56f3e1f-f2f5-42fc-b1bb-490eb2a8835c	GET	undefined	/employees
+2024-11-23	15:56:59	dc1d1e82-ca9b-419a-9674-40e73ec0853e	POST	undefined	/users
