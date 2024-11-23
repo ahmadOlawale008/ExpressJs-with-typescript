@@ -1,12 +1,7 @@
-import { UsersType, UserType } from "types"
-import { promises as fsPromises } from 'fs';
-import path from "path";
 import { Request, Response } from "express";
 import { encryptPassword } from "../config/encrypt";
 import User from "../model/User";
-const userDb: UsersType = {
-    users: require("../model/users.json"), setUsers: function (data) { this.users = data }
-}
+
 export const handleNewUser = async (req: Request, res: Response) => {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -21,10 +16,6 @@ export const handleNewUser = async (req: Request, res: Response) => {
     try {
         const hashedPassword = await encryptPassword(password)
         const newUser= await User.create({username, password: hashedPassword})
-       
-        // const newUser: UserType = { _id: (userDb.users.at(-1)?._id || 0) + 1, roles: { "User": 2001 }, username, password: hashedPassword }
-        // userDb.setUsers([...userDb.users, newUser])
-        await fsPromises.writeFile(path.join(__dirname, "..", "model", "users.json"), JSON.stringify(userDb.users))
         res.status(201).json({ msg: "User created successfully", user: newUser })
     } catch (error) {
         if (error instanceof Error) {
